@@ -2,6 +2,17 @@
 
 Neste lab você vai usar o **Antigravity CLI (`agy`)** para criar, com o **Google ADK**, um agente especialista em estudos. O agente usa a skill [`plano-de-estudos`](skills/plano-de-estudos/SKILL.md): você diz o que quer aprender e até quando, e ele monta um plano de estudos e salva um arquivo CSV para importar no Google Agenda, usando o [EnvironmentToolset](https://adk.dev/integrations/environment-toolset/) do ADK.
 
+## 🚀 Projeto Implementado (`agente-estudos/`)
+
+O agente completo encontra-se em [`agente-estudos/`](agente-estudos/README.md) e conta com:
+
+- **Google ADK + `SkillToolset`**: carregamento progressivo (L1 → L2 → L3) da skill [`plano-de-estudos`](agente-estudos/app/skills/plano-de-estudos/SKILL.md) com regra de *gating*.
+- **`EnvironmentToolset` restrito (`ReadFile` e `WriteFile`)**: subclasse `FerramentasDeArquivo` em [`agente-estudos/app/agent.py`](agente-estudos/app/agent.py) operando em `LocalEnvironment(working_dir="planos/")`, sem execução de shell.
+- **Modelo via variável de ambiente `MODEL` e data dinâmica**: injeção da data atual e dia da semana via *instruction provider* (`instrucao_agente`).
+- **Front-End Customizado Verde e Preto (`/` e `/ui`)**: interface web em [`agente-estudos/frontend/index.html`](agente-estudos/frontend/index.html) integrada ao `adk web` via [`agente-estudos/services.py`](agente-estudos/services.py), com visualização em tempo real das chamadas de ferramentas, atalhos de teste e painel lateral para visualizar e baixar o `plano-de-estudos.csv`.
+
+👉 Confira a documentação detalhada em **[`agente-estudos/README.md`](agente-estudos/README.md)**.
+
 ## Pré-requisitos
 
 - Conta Google com um projeto do Google Cloud com faturamento ativo (os créditos do [free trial](https://cloud.google.com/free) servem)
